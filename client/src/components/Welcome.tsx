@@ -4,6 +4,7 @@ import { SiEthereum } from 'react-icons/si'
 import { BsInfoCircle } from 'react-icons/bs'
 import Loader from './Loader'
 import { TransactionContext } from '../context/TransactionContext'
+import { shortenAddress } from '../utils/shortenAddress'
 
 const commonStyles =
     'min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white'
@@ -29,6 +30,7 @@ const Welcome = () => {
         formData,
         handleChange,
         sendTransaction,
+        isLoading,
     } = useContext(TransactionContext)
 
     const handleSubmit = (e: any) => {
@@ -91,7 +93,7 @@ const Welcome = () => {
                             </div>
                             <div>
                                 <p className="text-white font-light text-sm">
-                                    Address
+                                    {shortenAddress(currentAccount)}
                                 </p>
                                 <p className="text-white font-semibold text-lg mt-1">
                                     Ethereum
@@ -126,7 +128,7 @@ const Welcome = () => {
                             handleChange={handleChange}
                         />
                         <div className="h-[1px] w-full bg-gray-400 my-2"></div>
-                        {false ? (
+                        {isLoading ? (
                             <Loader />
                         ) : (
                             <button
